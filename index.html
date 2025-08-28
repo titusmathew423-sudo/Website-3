@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Finance Ninjas</title>
-<!-- Inter font from Google Fonts -->
+<!-- Inter font for a modern, clean look -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
 <!-- Tailwind CSS for a modern, responsive design -->
 <script src="https://cdn.tailwindcss.com"></script>
@@ -49,7 +49,7 @@
 </head>
 <body class="bg-gradient-to-br from-blue-200 to-pink-200 text-slate-800">
 
-<!-- Header -->
+<!-- Header (Navigation Bar) -->
 <header class="bg-emerald-500 text-white shadow-lg p-4 sticky top-0 z-50">
   <div class="container mx-auto flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
     <div class="flex items-center space-x-4">
@@ -65,6 +65,7 @@
       <a href="#budget-tool" class="hover:text-emerald-200 transition-colors">Budget Tool</a>
       <a href="#rewards" class="hover:text-emerald-200 transition-colors">Rewards</a>
       <a href="#about" class="hover:text-emerald-200 transition-colors">About Us</a>
+      <a href="#sdg" class="hover:text-emerald-200 transition-colors">SDG Goal</a>
       <a href="#mentor" class="hover:text-emerald-200 transition-colors">AI Mentor</a>
       <a href="#contact" class="hover:text-emerald-200 transition-colors">Contact Us</a>
     </nav>
@@ -287,9 +288,26 @@
         Through interactive quizzes, engaging lessons, and a friendly AI mentor, we make complex financial concepts simple and fun. We cover everything from saving and spending to investing and entrepreneurship. Join us on this journey and unlock your inner financial ninja!
       </p>
       <h3 class="text-2xl font-bold mt-8 mb-4 text-emerald-600">The Founders</h3>
-      <p class="text-lg text-slate-700 leading-relaxed">
+      <p class="text-lg text-slate-700 leading-relaxed mb-8">
         This platform was created by a team of dedicated ninjas: <span class="font-semibold">Titus, Vivaan, Shreyansh, Essa, and Yatharth.</span>
       </p>
+      <h3 class="text-2xl font-bold text-emerald-600 mb-4">Our Solution</h3>
+      <p class="text-lg text-slate-700 leading-relaxed">
+        Our solution is a unique combination of a **board game** and this **website**, providing a comprehensive and fun way to learn financial literacy. The board game allows for hands-on, collaborative learning, while the website offers interactive tools, quizzes, and an AI mentor to reinforce concepts and provide ongoing support.
+      </p>
+      <h3 class="text-2xl font-bold text-emerald-600 mt-8 mb-4">Our Goals</h3>
+      <p class="text-lg text-slate-700 leading-relaxed">
+        We hope to collaborate with different schools and with private single users to help spread financial literacy. By making these resources accessible, we aim to build a strong foundation for a financially savvy generation.
+      </p>
+    </div>
+  </section>
+
+  <!-- SDG Goal Section -->
+  <section id="sdg" class="py-16">
+    <div class="bg-white p-8 rounded-xl shadow-lg max-w-4xl mx-auto text-center">
+      <h2 class="text-4xl font-bold text-emerald-600">
+        Our SDG goal is <span class="text-slate-800">No. 8: Decent Work and Economic Growth</span>
+      </h2>
     </div>
   </section>
 
@@ -360,6 +378,48 @@
   </div>
 </div>
 
+<!-- Subscription Modal - Free vs. Pro Tiers -->
+<div id="subscription-modal" class="fixed inset-0 bg-slate-900 bg-opacity-75 flex items-center justify-center hidden z-[100]">
+  <div class="bg-white p-8 rounded-xl shadow-2xl max-w-2xl w-full mx-4 relative">
+    <button id="close-modal-btn" class="absolute top-4 right-4 text-slate-500 hover:text-slate-800 transition-colors">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+    </button>
+    <h3 class="text-3xl font-bold mb-6 text-center text-emerald-600">Choose Your Ninja Path</h3>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      
+      <!-- Free Tier -->
+      <div class="p-6 border-2 border-slate-300 rounded-lg text-center">
+        <h4 class="text-2xl font-bold text-slate-800">Free Dojo</h4>
+        <p class="text-4xl font-extrabold text-slate-600 mt-2">
+          $0<span class="text-lg font-normal text-slate-500">/mo</span>
+        </p>
+        <p class="text-slate-600 mt-4">For young ninjas starting their training.</p>
+        <ul class="text-left mt-6 space-y-2 text-slate-600">
+          <li class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle text-emerald-500 mr-2"><path d="M22 11.08V12a10 10 0 1 1-5.93-8.82"/><path d="M15 8l2 2l4 -4"/></svg>Access to core courses</li>
+          <li class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle text-emerald-500 mr-2"><path d="M22 11.08V12a10 10 0 1 1-5.93-8.82"/><path d="M15 8l2 2l4 -4"/></svg>Limited AI Mentor chats (3 per day)</li>
+          <li class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle text-emerald-500 mr-2"><path d="M22 11.08V12a10 10 0 1 1-5.93-8.82"/><path d="M15 8l2 2l4 -4"/></svg>Basic Financial Tools</li>
+        </ul>
+        <button id="start-free-btn" class="w-full mt-8 btn bg-white border border-emerald-500 text-emerald-500 font-semibold py-3 px-8 rounded-full shadow-lg transition-colors hover:bg-emerald-50">Start Free Training</button>
+      </div>
+
+      <!-- Pro Tier -->
+      <div class="p-6 border-2 border-emerald-500 rounded-lg text-center bg-emerald-50">
+        <h4 class="text-2xl font-bold text-emerald-800">Pro Ninja</h4>
+        <p class="text-4xl font-extrabold text-emerald-600 mt-2">
+          $4.99<span class="text-lg font-normal text-slate-500">/mo</span>
+        </p>
+        <p class="text-slate-600 mt-4">Unlock your full potential!</p>
+        <ul class="text-left mt-6 space-y-2 text-slate-600">
+          <li class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle text-emerald-500 mr-2"><path d="M22 11.08V12a10 10 0 1 1-5.93-8.82"/><path d="M15 8l2 2l4 -4"/></svg>Access to **all courses** (including advanced)</li>
+          <li class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle text-emerald-500 mr-2"><path d="M22 11.08V12a10 10 0 1 1-5.93-8.82"/><path d="M15 8l2 2l4 -4"/></svg>Unlimited AI Mentor chats</li>
+          <li class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle text-emerald-500 mr-2"><path d="M22 11.08V12a10 10 0 1 1-5.93-8.82"/><path d="M15 8l2 2l4 -4"/></svg>All Financial Tools & Achievements</li>
+        </ul>
+        <button id="go-pro-btn" class="w-full mt-8 btn bg-emerald-500 hover:bg-emerald-600 text-white font-semibold py-3 px-8 rounded-full shadow-lg transition-colors">Go Pro</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- Footer -->
 <footer class="bg-slate-800 text-white py-6 mt-16 text-center">
   <div class="container mx-auto">
@@ -368,535 +428,3 @@
     </div>
   </div>
 </footer>
-
-<!-- Firebase SDK Imports -->
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-  import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-  import { getFirestore, doc, getDoc, addDoc, onSnapshot, collection, query, orderBy, serverTimestamp, limit } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-
-  // Global variables provided by the environment for Firebase setup
-  const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-  const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
-  const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
-
-  let db, auth;
-  let userId;
-  let chatListenerUnsubscribe;
-
-  // Function to initialize Firebase and authenticate
-  async function initializeFirebase() {
-    try {
-      if (!db || !auth) {
-        const app = initializeApp(firebaseConfig);
-        db = getFirestore(app);
-        auth = getAuth(app);
-        
-        // Authenticate the user. Use custom token if available, otherwise sign in anonymously.
-        if (initialAuthToken) {
-          await signInWithCustomToken(auth, initialAuthToken);
-        } else {
-          await signInAnonymously(auth);
-        }
-
-        // Listen for auth state changes and set the user ID
-        onAuthStateChanged(auth, (user) => {
-          if (user) {
-            userId = user.uid;
-            console.log("Authenticated with user ID:", userId);
-            setupChatListener();
-          } else {
-            console.log("Authentication failed.");
-          }
-        });
-      }
-    } catch (error) {
-      console.error("Error initializing Firebase:", error);
-    }
-  }
-
-  // Set up a real-time listener for chat messages from Firestore
-  function setupChatListener() {
-    if (chatListenerUnsubscribe) {
-      chatListenerUnsubscribe(); // Unsubscribe previous listener if it exists
-    }
-    
-    // NOTE: The use of `orderBy` on a non-indexed field may cause performance issues.
-    // For this demonstration, we'll keep it as it's required to show chat messages in order.
-    // In a real-world app, a Firestore index would be needed.
-    const chatCollectionRef = collection(db, `artifacts/${appId}/public/data/chat`);
-    const q = query(chatCollectionRef, orderBy("timestamp"), limit(50));
-
-    chatListenerUnsubscribe = onSnapshot(q, (snapshot) => {
-      const chatBox = document.getElementById('chat-box');
-      
-      // Keep track of the current scroll position before updating
-      const isScrolledToBottom = chatBox.scrollHeight - chatBox.clientHeight <= chatBox.scrollTop + 1;
-      
-      chatBox.innerHTML = ''; // Clear chatbox
-      
-      snapshot.forEach(doc => {
-        const message = doc.data();
-        const messageDiv = document.createElement('div');
-        messageDiv.className = `flex mb-2 ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`;
-        
-        messageDiv.innerHTML = `
-          <div class="p-3 rounded-lg shadow-sm max-w-[80%] break-words ${message.sender === 'user' ? 'bg-emerald-500 text-white' : 'bg-slate-200 text-slate-800'}">
-            ${message.text}
-          </div>
-        `;
-        chatBox.appendChild(messageDiv);
-      });
-      
-      // Only scroll to bottom if the user was already at the bottom
-      if (isScrolledToBottom) {
-        chatBox.scrollTop = chatBox.scrollHeight;
-      }
-    });
-  }
-
-  // API key is deliberately left blank as it is provided by the execution environment
-  const apiKey = "";
-  const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
-
-  // Function to make the API call and get a response
-  async function getGeminiResponse(userText) {
-    const systemPrompt = "You are a friendly, encouraging, and knowledgeable financial literacy AI mentor for children and teenagers. Your name is 'The Finance Ninja'. Always use simple, easy-to-understand language. Do not use jargon. Respond concisely and keep your answers brief, fun, and helpful. You can use emojis to make your responses more engaging. Your goal is to help kids learn about concepts like saving, spending, budgeting, and earning money.";
-    
-    const payload = {
-      contents: [{ parts: [{ text: userText }] }],
-      tools: [{ "google_search": {} }],
-      systemInstruction: {
-        parts: [{ text: systemPrompt }]
-      },
-    };
-
-    const loadingIndicator = document.getElementById('loading-indicator');
-    loadingIndicator.classList.remove('hidden');
-
-    try {
-      const response = await fetch(apiUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
-      const result = await response.json();
-      const botReply = result?.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, I'm having trouble thinking right now. Please try again!";
-      return botReply;
-    } catch (error) {
-      console.error("Error fetching Gemini response:", error);
-      return "Oops! I seem to have lost my connection. Can you ask me again in a moment? 😅";
-    } finally {
-      loadingIndicator.classList.add('hidden');
-    }
-  }
-
-  // Send a message and handle the AI response
-  async function sendMessage() {
-    const input = document.getElementById('user-input');
-    const text = input.value.trim();
-    if (!text) return;
-
-    // Add user message to Firestore
-    await addDoc(collection(db, `artifacts/${appId}/public/data/chat`), {
-      text: text,
-      timestamp: serverTimestamp(),
-      sender: 'user',
-      userId: userId
-    });
-
-    input.value = ''; // Clear input field
-
-    // Display a temporary message to the user that their message was sent
-    const chatBox = document.getElementById('chat-box');
-    const messageSentDiv = document.createElement('div');
-    messageSentDiv.className = 'text-center text-sm text-slate-500 my-2';
-    messageSentDiv.innerText = 'Your message was sent! Awaiting AI Mentor response...';
-    chatBox.appendChild(messageSentDiv);
-    chatBox.scrollTop = chatBox.scrollHeight;
-
-    // Get AI response and add it to Firestore
-    const botReply = await getGeminiResponse(text);
-    await addDoc(collection(db, `artifacts/${appId}/public/data/chat`), {
-      text: botReply,
-      timestamp: serverTimestamp(),
-      sender: 'bot',
-      userId: 'finance-ninja-bot'
-    });
-    
-    // Remove the temporary message after a brief delay
-    setTimeout(() => {
-      messageSentDiv.remove();
-    }, 3000);
-  }
-
-  // Handle Enter key press
-  document.getElementById('user-input').addEventListener('keypress', (event) => {
-    if (event.key === 'Enter') {
-      sendMessage();
-    }
-  });
-
-  document.getElementById('send-btn').addEventListener('click', sendMessage);
-
-  // Toggle chat container visibility and initialize Firebase
-  async function toggleChat() {
-    const container = document.getElementById('chat-container');
-    const isHidden = container.classList.toggle('hidden');
-    if (!isHidden) {
-      await initializeFirebase();
-    }
-  }
-  
-  window.toggleChat = toggleChat;
-  
-  // --- Start of Contact Form Logic ---
-  const contactForm = document.getElementById('contact-form');
-  const contactStatus = document.getElementById('contact-message-status');
-
-  contactForm.addEventListener('submit', function(event) {
-      event.preventDefault(); // Stop the form from submitting normally
-      
-      const name = document.getElementById('name').value;
-      const email = document.getElementById('email').value;
-      const message = document.getElementById('message').value;
-
-      // Basic validation
-      if (!name || !email || !message) {
-          contactStatus.innerText = 'Please fill out all fields.';
-          contactStatus.classList.remove('hidden');
-          contactStatus.classList.remove('text-emerald-600');
-          contactStatus.classList.add('text-red-600');
-          return;
-      }
-      
-      // Display success message
-      contactStatus.innerText = 'Your message has been sent successfully! Thank you for reaching out.';
-      contactStatus.classList.remove('hidden');
-      contactStatus.classList.remove('text-red-600');
-      contactStatus.classList.add('text-emerald-600');
-      
-      // Clear the form
-      contactForm.reset();
-      
-      // Hide the message after 5 seconds
-      setTimeout(() => {
-          contactStatus.classList.add('hidden');
-      }, 5000);
-  });
-  // --- End of Contact Form Logic ---
-
-  // Quiz data structure for dynamic content
-  const quizData = [
-    { level: 'Beginner', title: 'Course 1: The Basics of Money', questions: [
-      { q: 'What is money used for?', options: ['Eating', 'Buying things', 'Sleeping'], answer: 'Buying things' },
-      { q: 'Why is saving money a good idea?', options: ['To buy something big later', 'To make it disappear', 'To throw it away'], answer: 'To buy something big later' },
-      { q: 'What is an allowance?', options: ['A reward for being good', 'Money you get for doing chores', 'A type of cookie'], answer: 'Money you get for doing chores' }
-    ]},
-    { level: 'Beginner', title: 'Course 2: Saving vs. Spending', questions: [
-      { q: 'What is the first thing you should do when you get money?', options: ['Spend it all', 'Save some', 'Hide it under your bed'], answer: 'Save some' },
-      { q: 'What is a need?', options: ['Something you want', 'Something you must have to live', 'A new toy'], answer: 'Something you must have to live' },
-      { q: 'What is a want?', options: ['Something you must have to live', 'A new bicycle or a video game', 'Food and water'], answer: 'A new bicycle or a video game' }
-    ]},
-    { level: 'Intermediate', title: 'Course 1: Budgeting for Fun', questions: [
-      { q: 'What is a budget?', options: ['A list of your friends', 'A plan for how to spend and save your money', 'A type of musical instrument'], answer: 'A plan for how to spend and save your money' },
-      { q: 'What is income?', options: ['Money you owe someone', 'Money you earn or receive', 'The things you buy'], answer: 'Money you earn or receive' },
-      { q: 'What are expenses?', options: ['Things you save for later', 'The money you spend on things', 'A type of food'], answer: 'The money you spend on things' }
-    ]},
-    { level: 'Advanced', title: 'Course 1: Intro to Investing', questions: [
-      { q: 'What does "investing" mean?', options: ['Spending all your money', 'Putting money in a jar', 'Using your money to make more money'], answer: 'Using your money to make more money' },
-      { q: 'What is a stock?', options: ['A type of sock', 'A small piece of a company', 'A large rock'], answer: 'A small piece of a company' },
-      { q: 'What is "interest"?', options: ['How much you like something', 'Extra money you get for saving money', 'A math problem'], answer: 'Extra money you get for saving money' }
-    ]}
-  ];
-  
-  // Generate all course buttons from quizData
-  const courseButtonsDiv = document.getElementById('course-buttons');
-  quizData.forEach((course, index) => {
-    const div = document.createElement('div');
-    div.className = 'bg-white p-6 rounded-xl shadow-lg flex flex-col items-center text-center transition-transform transform hover:scale-105 hover:shadow-2xl';
-    div.innerHTML = `
-      <h3 class="text-xl font-bold text-emerald-600 mb-2">${course.title}</h3>
-      <p class="text-slate-600 text-sm mb-4">Level: ${course.level}</p>
-      <button onclick="startQuiz(${index})" class="mt-auto bg-emerald-500 hover:bg-emerald-600 text-white font-semibold py-2 px-6 rounded-full transition-colors">Start Quiz</button>
-    `;
-    courseButtonsDiv.appendChild(div);
-  });
-  
-  // Quiz logic
-  let completedQuizzes = 0;
-  const totalQuizzes = quizData.length;
-  
-  function updateQuizProgress() {
-      const progressCount = document.getElementById('quiz-progress-count');
-      const progressBar = document.getElementById('quiz-progress-bar');
-      progressCount.innerText = completedQuizzes;
-      const progressPercentage = (completedQuizzes / totalQuizzes) * 100;
-      progressBar.style.width = `${progressPercentage}%`;
-  }
-  
-  let currentCourseIndex = 0;
-  let currentQuestionIndex = 0;
-
-  function startQuiz(index) {
-    currentCourseIndex = index;
-    currentQuestionIndex = 0;
-    document.getElementById('courses').classList.add('hidden');
-    document.getElementById('quiz-container').classList.remove('hidden');
-    document.getElementById('course-title').innerText = quizData[index].title;
-    showQuestion();
-  }
-
-  function showQuestion() {
-    const questionObj = quizData[currentCourseIndex].questions[currentQuestionIndex];
-    const container = document.getElementById('question-container');
-    let html = `
-      <div class="bg-slate-100 p-4 rounded-md shadow-sm mb-4">
-        <p class="text-xl font-semibold text-slate-800">${questionObj.q}</p>
-      </div>
-    `;
-    questionObj.options.forEach(option => {
-      html += `
-        <button onclick="checkAnswer('${option}')" class="option-btn w-full text-left p-3 my-2 rounded-md transition-colors bg-slate-200 hover:bg-slate-300">
-          ${option}
-        </button>
-      `;
-    });
-    container.innerHTML = html;
-    document.getElementById('next-btn').classList.add('hidden');
-  }
-
-  function checkAnswer(selectedOption) {
-    const questionObj = quizData[currentCourseIndex].questions[currentQuestionIndex];
-    const isCorrect = selectedOption === questionObj.answer;
-    
-    // Disable all options
-    document.querySelectorAll('.option-btn').forEach(btn => btn.disabled = true);
-
-    if (isCorrect) {
-        showResultModal('Correct!', 'Awesome! That\'s the right answer. 🎉');
-        currentQuestionIndex++;
-        if (currentQuestionIndex < quizData[currentCourseIndex].questions.length) {
-            document.getElementById('next-btn').classList.remove('hidden');
-        } else {
-            // Quiz completed
-            completedQuizzes++;
-            updateQuizProgress();
-            showResultModal('Quiz Complete!', 'You finished the quiz! Great job, financial ninja! 🏆');
-            setTimeout(() => {
-              document.getElementById('quiz-container').classList.add('hidden');
-              document.getElementById('courses').classList.remove('hidden');
-            }, 3000);
-        }
-    } else {
-        showResultModal('Incorrect', 'Not quite. The correct answer was: ' + questionObj.answer + '. Keep trying!');
-    }
-  }
-
-  document.getElementById('next-btn').addEventListener('click', () => {
-      showQuestion();
-  });
-
-  // Modal logic functions
-  function showResultModal(title, message) {
-    document.getElementById('modal-title').innerText = title;
-    document.getElementById('modal-message').innerText = message;
-    document.getElementById('result-modal').classList.remove('hidden');
-  }
-
-  function showAlertModal(message) {
-    document.getElementById('alert-message').innerText = message;
-    document.getElementById('alert-modal').classList.remove('hidden');
-  }
-  
-  document.getElementById('modal-close-btn').addEventListener('click', () => {
-    document.getElementById('result-modal').classList.add('hidden');
-  });
-
-  document.getElementById('alert-close-btn').addEventListener('click', () => {
-    document.getElementById('alert-modal').classList.add('hidden');
-  });
-
-  window.startQuiz = startQuiz;
-  window.checkAnswer = checkAnswer;
-
-  // --- Start of Financial Tools Logic ---
-
-  // Savings Goal Tracker
-  document.getElementById('update-goal-btn').addEventListener('click', () => {
-      const goalName = document.getElementById('goal-name').value;
-      const goalAmount = parseFloat(document.getElementById('goal-amount').value);
-      const savedAmount = parseFloat(document.getElementById('saved-amount').value);
-
-      if (!goalName || isNaN(goalAmount) || isNaN(savedAmount) || goalAmount <= 0) {
-          showAlertModal('Please enter valid numbers and a goal name.');
-          return;
-      }
-      
-      const goalDisplay = document.getElementById('goal-display');
-      const goalTitle = document.getElementById('goal-title-display');
-      const goalProgressText = document.getElementById('goal-progress-text');
-      const goalProgressBar = document.getElementById('goal-progress-bar');
-      const completionMessage = document.getElementById('goal-completion-message');
-
-      const progress = Math.min(100, (savedAmount / goalAmount) * 100);
-      
-      goalTitle.innerText = `Saving for: ${goalName}`;
-      goalProgressText.innerText = `$${savedAmount.toFixed(2)} of $${goalAmount.toFixed(2)}`;
-      goalProgressBar.style.width = `${progress}%`;
-      goalDisplay.classList.remove('hidden');
-
-      if (progress >= 100) {
-          completionMessage.classList.remove('hidden');
-      } else {
-          completionMessage.classList.add('hidden');
-      }
-  });
-
-  // Investing Simulator
-  document.getElementById('calculate-investment-btn').addEventListener('click', () => {
-      const initial = parseFloat(document.getElementById('initial-investment').value);
-      const annualReturn = parseFloat(document.getElementById('annual-return').value) / 100;
-      const years = parseFloat(document.getElementById('investment-years').value);
-
-      if (isNaN(initial) || isNaN(annualReturn) || isNaN(years) || initial <= 0) {
-          showAlertModal('Please enter valid numbers for the investment.');
-          return;
-      }
-
-      const finalAmount = initial * Math.pow((1 + annualReturn), years);
-      document.getElementById('final-amount').innerText = `$${finalAmount.toFixed(2)}`;
-      document.getElementById('investment-result').classList.remove('hidden');
-  });
-
-  // Earning Simulator
-  let balance = 0;
-  function updateBalance(amount) {
-      balance += amount;
-      document.getElementById('balance-display').innerText = `$${balance.toFixed(2)}`;
-  }
-  document.getElementById('task1-btn').addEventListener('click', () => updateBalance(5));
-  document.getElementById('task2-btn').addEventListener('click', () => updateBalance(10));
-  document.getElementById('task3-btn').addEventListener('click', () => updateBalance(3));
-
-  // Budgeting Tool
-  document.getElementById('calculate-budget-btn').addEventListener('click', () => {
-      const income = parseFloat(document.getElementById('monthly-income').value);
-      const expenses = parseFloat(document.getElementById('monthly-expenses').value);
-
-      if (isNaN(income) || isNaN(expenses)) {
-          showAlertModal('Please enter valid numbers for income and expenses.');
-          return;
-      }
-
-      const moneyLeft = income - expenses;
-      document.getElementById('budget-left-display').innerText = `$${moneyLeft.toFixed(2)}`;
-      document.getElementById('budget-result').classList.remove('hidden');
-  });
-
-  // --- Start of Wants vs Needs Game Logic ---
-  const wantsNeedsItems = [
-      { id: 'item1', text: 'Food', type: 'needs' },
-      { id: 'item2', text: 'Video Game', type: 'wants' },
-      { id: 'item3', text: 'Water', type: 'needs' },
-      { id: 'item4', text: 'New Shoes', type: 'wants' },
-      { id: 'item5', text: 'Shelter (home)', type: 'needs' },
-      { id: 'item6', text: 'New Phone', type: 'wants' },
-      { id: 'item7', text: 'Clothes', type: 'needs' },
-      { id: 'item8', text: 'Vacation', type: 'wants' }
-  ];
-
-  const itemList = document.getElementById('item-list');
-  const needsDropzone = document.getElementById('needs-dropzone');
-  const wantsDropzone = document.getElementById('wants-dropzone');
-
-  function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
-    }
-  }
-
-  function createDraggableItems() {
-    shuffleArray(wantsNeedsItems);
-    itemList.innerHTML = ''; // Clear previous items
-    wantsNeedsItems.forEach(item => {
-      const div = document.createElement('div');
-      div.id = item.id;
-      div.innerText = item.text;
-      div.className = 'draggable-item p-3 bg-white rounded-md shadow-md hover:shadow-lg transition-shadow border-2 border-transparent';
-      div.setAttribute('draggable', true);
-      div.dataset.type = item.type;
-      itemList.appendChild(div);
-    });
-  }
-  
-  // Drag and drop event listeners
-  let draggedItem = null;
-
-  document.addEventListener('dragstart', (e) => {
-    if (e.target.classList.contains('draggable-item')) {
-        draggedItem = e.target;
-        e.dataTransfer.setData('text/plain', e.target.id);
-        setTimeout(() => {
-            e.target.style.opacity = '0.5';
-        }, 0);
-    }
-  });
-
-  document.addEventListener('dragend', (e) => {
-      e.target.style.opacity = '1';
-      draggedItem = null;
-  });
-
-  document.querySelectorAll('.drop-zone').forEach(zone => {
-      zone.addEventListener('dragover', (e) => {
-          e.preventDefault(); // This is crucial for allowing a drop
-          zone.classList.add('dragover');
-      });
-      zone.addEventListener('dragleave', () => {
-          zone.classList.remove('dragover');
-      });
-      zone.addEventListener('drop', (e) => {
-          e.preventDefault();
-          zone.classList.remove('dragover');
-          if (draggedItem) {
-              zone.appendChild(draggedItem);
-          }
-      });
-  });
-
-  document.getElementById('check-answers-btn').addEventListener('click', () => {
-      let correctCount = 0;
-      let totalItems = wantsNeedsItems.length;
-
-      wantsNeedsItems.forEach(item => {
-          const element = document.getElementById(item.id);
-          const parent = element.parentElement;
-          element.classList.remove('border-red-500', 'border-green-500');
-
-          if (parent.id === `${item.type}-dropzone`) {
-              correctCount++;
-              element.classList.add('border-green-500');
-          } else {
-              element.classList.add('border-red-500');
-          }
-      });
-
-      if (correctCount === totalItems) {
-          showResultModal('Perfect!', 'You got all of them right! You are a master financial ninja! 💯');
-      } else {
-          showResultModal('Almost There!', `You got ${correctCount} out of ${totalItems} correct. The items with a red border are in the wrong place. Try again!`);
-      }
-  });
-
-  // Initial call to create draggable items when the page loads
-  document.addEventListener('DOMContentLoaded', () => {
-    createDraggableItems();
-    updateQuizProgress();
-  });
-  // --- End of Wants vs Needs Game Logic ---
-</script>
-
-</body>
-</html>
