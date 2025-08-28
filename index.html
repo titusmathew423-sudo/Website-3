@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Finance Ninjas</title>
+<!-- Inter font from Google Fonts -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+<!-- Tailwind CSS for a modern, responsive design -->
+<script src="https://cdn.tailwindcss.com"></script>
+<!-- Lucide Icons for a clean look -->
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+  body {
+    font-family: 'Inter', sans-serif;
+    scroll-behavior: smooth;
+  }
+  /* Custom scrollbar for chatbox */
+  #chat-box::-webkit-scrollbar {
+    width: 8px;
+  }
+  #chat-box::-webkit-scrollbar-track {
+    background: #f1f5e9; /* slate-100 */
+    border-radius: 10px;
+  }
+  #chat-box::-webkit-scrollbar-thumb {
+    background: #cbd5e1; /* slate-300 */
+    border-radius: 10px;
+  }
+  #chat-box::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8; /* slate-400 */
+  }
+  /* Styling for the wants vs needs game */
+  .drop-zone {
+      min-height: 150px;
+      border: 2px dashed #94a3b8;
+      border-radius: 10px;
+      padding: 1rem;
+      transition: all 0.2s ease-in-out;
+  }
+  .drop-zone.dragover {
+      background-color: #e2e8f0;
+      border-color: #38a169;
+  }
+  .draggable-item {
+      cursor: grab;
+  }
+</style>
+</head>
+<body class="bg-gradient-to-br from-blue-200 to-pink-200 text-slate-800">
+
+<!-- Header -->
+<header class="bg-emerald-500 text-white shadow-lg p-4 sticky top-0 z-50">
+  <div class="container mx-auto flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
+    <div class="flex items-center space-x-4">
+      <img src="https://placehold.co/60x60/34D399/FFFFFF?text=FN" alt="Finance Ninjas Logo" class="w-12 h-12 rounded-full">
+      <h1 class="text-3xl font-bold">The Finance Ninjas</h1>
+    </div>
+    <nav class="flex flex-wrap justify-center sm:justify-end gap-x-4 gap-y-2 text-sm sm:text-base">
+      <a href="#home" class="hover:text-emerald-200 transition-colors">Home</a>
+      <a href="#courses" class="hover:text-emerald-200 transition-colors">Courses</a>
+      <a href="#tools" class="hover:text-emerald-200 transition-colors">Tools</a>
+      <a href="#wants-needs" class="hover:text-emerald-200 transition-colors">Wants & Needs</a>
+      <a href="#earning-sim" class="hover:text-emerald-200 transition-colors">Earning Sim</a>
+      <a href="#budget-tool" class="hover:text-emerald-200 transition-colors">Budget Tool</a>
+      <a href="#rewards" class="hover:text-emerald-200 transition-colors">Rewards</a>
+      <a href="#about" class="hover:text-emerald-200 transition-colors">About Us</a>
+      <a href="#mentor" class="hover:text-emerald-200 transition-colors">AI Mentor</a>
+      <a href="#contact" class="hover:text-emerald-200 transition-colors">Contact Us</a>
+    </nav>
+  </div>
+</header>
+
+<!-- Main Sections Container -->
+<main class="container mx-auto p-4 sm:p-8">
+
+  <!-- Home Section -->
+  <section id="home" class="min-h-screen-minus-header flex flex-col justify-center items-center text-center space-y-6">
+    <h2 class="text-5xl font-extrabold text-emerald-600">Master Your Money Skills</h2>
+    <p class="text-xl max-w-3xl text-slate-600 leading-relaxed">
+      Welcome, future financial ninjas! Have you ever wondered what it means to be smart with money? Our platform is your secret dojo to master the art of financial literacy. It’s an exciting adventure filled with fun lessons, challenging quizzes, and a friendly AI mentor who is always ready to help. You'll learn how to make your money work for you, not against you. From understanding the difference between a need and a want, to saving up for that epic new video game, we'll guide you every step of the way. So, grab your shuriken, or in this case, your piggy bank, and let's begin your training to become a true financial ninja!
+    </p>
+    <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+      <a href="#courses" class="btn bg-emerald-500 hover:bg-emerald-600 text-white font-semibold py-3 px-8 rounded-full shadow-lg transition-colors transform hover:scale-105">Start Learning</a>
+      <a href="#mentor" class="btn bg-white text-emerald-500 border border-emerald-500 font-semibold py-3 px-8 rounded-full shadow-lg transition-colors transform hover:scale-105 hover:bg-emerald-50">Meet Your AI Mentor</a>
+    </div>
+  </section>
+
+  <!-- Courses Section -->
+  <section id="courses" class="py-16">
+    <h2 class="text-4xl font-bold text-center mb-12 text-emerald-600">Our Courses</h2>
+    <!-- Progress tracker for quizzes -->
+    <div class="bg-white p-4 rounded-xl shadow-lg text-center mb-8">
+      <h3 class="text-xl font-bold text-emerald-600">Your Progress</h3>
+      <p class="text-slate-600">You have completed <span id="quiz-progress-count">0</span> of <span id="total-quizzes">4</span> quizzes!</p>
+      <div class="w-full bg-slate-200 rounded-full h-4 mt-2">
+          <div id="quiz-progress-bar" class="bg-emerald-500 h-4 rounded-full transition-all duration-500" style="width: 0%;"></div>
+      </div>
+    </div>
+    
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8" id="course-buttons">
+      <!-- Courses will be dynamically generated here -->
+    </div>
+  </section>
+
+  <!-- Quiz Container (Initially Hidden) -->
+  <section id="quiz-container" class="py-16 hidden">
+    <h2 class="text-4xl font-bold text-center mb-8 text-emerald-600">Quiz: <span id="course-title"></span></h2>
+    <div id="question-container" class="bg-white p-6 rounded-lg shadow-md mb-6"></div>
+    <div class="flex justify-center">
+      <button id="next-btn" class="btn bg-emerald-500 hover:bg-emerald-600 text-white font-semibold py-3 px-8 rounded-full shadow-lg transition-colors hidden">Next Question</button>
+    </div>
+  </section>
+
+  <!-- Financial Tools Section -->
+  <section id="tools" class="py-16">
+    <h2 class="text-4xl font-bold text-center mb-12 text-emerald-600">Ninja Financial Tools</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      
+      <!-- Savings Goal Tracker -->
+      <div class="bg-white p-6 rounded-xl shadow-lg">
+        <h3 class="text-2xl font-bold text-emerald-600 mb-4">Savings Goal Tracker</h3>
+        <div class="space-y-4">
+          <div>
+            <label for="goal-name" class="block text-sm font-medium text-slate-700">What are you saving for?</label>
+            <input type="text" id="goal-name" placeholder="E.g., A new video game" class="mt-1 block w-full p-2 border border-slate-300 rounded-md shadow-sm">
+          </div>
+          <div>
+            <label for="goal-amount" class="block text-sm font-medium text-slate-700">How much do you need? ($)</label>
+            <input type="number" id="goal-amount" placeholder="E.g., 50" class="mt-1 block w-full p-2 border border-slate-300 rounded-md shadow-sm">
+          </div>
+          <div>
+            <label for="saved-amount" class="block text-sm font-medium text-slate-700">How much have you saved? ($)</label>
+            <input type="number" id="saved-amount" placeholder="E.g., 10" class="mt-1 block w-full p-2 border border-slate-300 rounded-md shadow-sm">
+          </div>
+          <button id="update-goal-btn" class="btn w-full bg-emerald-500 hover:bg-emerald-600 text-white font-semibold py-3 px-8 rounded-md shadow-lg transition-colors">Update Goal</button>
+        </div>
+        
+        <div id="goal-display" class="mt-6 p-4 bg-slate-100 rounded-md text-center hidden">
+          <h4 id="goal-title-display" class="text-xl font-bold text-emerald-700"></h4>
+          <p id="goal-progress-text" class="text-lg text-slate-600 mt-2"></p>
+          <div class="w-full bg-slate-200 rounded-full h-4 mt-4">
+            <div id="goal-progress-bar" class="bg-emerald-500 h-4 rounded-full transition-all duration-500" style="width: 0%;"></div>
+          </div>
+          <p id="goal-completion-message" class="text-sm text-emerald-600 mt-2 hidden">You did it! Goal achieved! 🎉</p>
+        </div>
+      </div>
+      
+      <!-- Investing Simulator -->
+      <div class="bg-white p-6 rounded-xl shadow-lg">
+        <h3 class="text-2xl font-bold text-emerald-600 mb-4">Simple Investing Simulator</h3>
+        <p class="text-sm text-slate-500 mb-4">See how your money can grow over time!</p>
+        <div class="space-y-4">
+          <div>
+            <label for="initial-investment" class="block text-sm font-medium text-slate-700">Starting with ($):</label>
+            <input type="number" id="initial-investment" value="100" class="mt-1 block w-full p-2 border border-slate-300 rounded-md shadow-sm">
+          </div>
+          <div>
+            <label for="annual-return" class="block text-sm font-medium text-slate-700">Annual Growth Rate (%):</label>
+            <input type="number" id="annual-return" value="7" class="mt-1 block w-full p-2 border border-slate-300 rounded-md shadow-sm">
+          </div>
+          <div>
+            <label for="investment-years" class="block text-sm font-medium text-slate-700">For how many years?</label>
+            <input type="number" id="investment-years" value="10" class="mt-1 block w-full p-2 border border-slate-300 rounded-md shadow-sm">
+          </div>
+          <button id="calculate-investment-btn" class="btn w-full bg-emerald-500 hover:bg-emerald-600 text-white font-semibold py-3 px-8 rounded-md shadow-lg transition-colors">Calculate Growth</button>
+        </div>
+        
+        <div id="investment-result" class="mt-6 p-4 bg-slate-100 rounded-md text-center hidden">
+          <p class="text-xl font-bold text-emerald-700">Your money could grow to:</p>
+          <p id="final-amount" class="text-4xl font-extrabold text-emerald-600 mt-2"></p>
+          <p class="text-sm text-slate-500 mt-2">This is just a fun example, not financial advice!</p>
+        </div>
+      </div>
+      
+    </div>
+  </section>
+
+  <!-- Wants vs. Needs Game -->
+  <section id="wants-needs" class="py-16">
+    <h2 class="text-4xl font-bold text-center mb-8 text-emerald-600">Wants vs. Needs Game</h2>
+    <div class="bg-white p-6 rounded-xl shadow-lg">
+      <p class="text-center text-lg mb-6">Drag each item into the correct box. Is it a **Want** or a **Need**?</p>
+      <div class="flex flex-wrap justify-center gap-4 mb-8" id="item-list">
+        <!-- Items will be dynamically generated here -->
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div id="needs-dropzone" class="drop-zone bg-slate-100 text-center">
+          <h3 class="text-xl font-bold text-emerald-600 mb-2">Needs</h3>
+        </div>
+        <div id="wants-dropzone" class="drop-zone bg-slate-100 text-center">
+          <h3 class="text-xl font-bold text-emerald-600 mb-2">Wants</h3>
+        </div>
+      </div>
+      <div class="flex justify-center mt-6">
+        <button id="check-answers-btn" class="btn bg-emerald-500 hover:bg-emerald-600 text-white font-semibold py-3 px-8 rounded-full shadow-lg transition-colors">Check Answers</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Earning Simulator -->
+  <section id="earning-sim" class="py-16">
+    <h2 class="text-4xl font-bold text-center mb-8 text-emerald-600">Earning Simulator</h2>
+    <div class="bg-white p-6 rounded-xl shadow-lg text-center">
+      <p class="text-lg text-slate-700">Current Balance: <span id="balance-display" class="font-bold">$0.00</span></p>
+      <div class="mt-6 space-y-4">
+        <h3 class="text-xl font-bold text-emerald-600">Ninja Tasks</h3>
+        <p class="text-slate-600">Complete tasks to earn money!</p>
+        <button id="task1-btn" class="btn bg-emerald-500 hover:bg-emerald-600 text-white font-semibold py-3 px-8 rounded-full shadow-lg transition-colors">Clean Your Room ($5)</button>
+        <button id="task2-btn" class="btn bg-emerald-500 hover:bg-emerald-600 text-white font-semibold py-3 px-8 rounded-full shadow-lg transition-colors">Wash the Car ($10)</button>
+        <button id="task3-btn" class="btn bg-emerald-500 hover:bg-emerald-600 text-white font-semibold py-3 px-8 rounded-full shadow-lg transition-colors">Walk the Dog ($3)</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Budgeting Tool -->
+  <section id="budget-tool" class="py-16">
+    <h2 class="text-4xl font-bold text-center mb-8 text-emerald-600">Simple Budgeting Tool</h2>
+    <div class="bg-white p-6 rounded-xl shadow-lg max-w-lg mx-auto">
+      <div class="space-y-4">
+        <div>
+          <label for="monthly-income" class="block text-sm font-medium text-slate-700">Your Monthly Income ($)</label>
+          <input type="number" id="monthly-income" placeholder="E.g., 50" class="mt-1 block w-full p-2 border border-slate-300 rounded-md shadow-sm">
+        </div>
+        <div>
+          <label for="monthly-expenses" class="block text-sm font-medium text-slate-700">Your Monthly Expenses ($)</label>
+          <input type="number" id="monthly-expenses" placeholder="E.g., 20" class="mt-1 block w-full p-2 border border-slate-300 rounded-md shadow-sm">
+        </div>
+        <button id="calculate-budget-btn" class="btn w-full bg-emerald-500 hover:bg-emerald-600 text-white font-semibold py-3 px-8 rounded-md shadow-lg transition-colors">Calculate Budget</button>
+      </div>
+      <div id="budget-result" class="mt-6 p-4 bg-slate-100 rounded-md text-center hidden">
+        <p class="text-xl font-bold text-emerald-700">Money Left to Save:</p>
+        <p id="budget-left-display" class="text-4xl font-extrabold text-emerald-600 mt-2"></p>
+        <p class="text-sm text-slate-500 mt-2">This is how much you can save!</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Rewards Section -->
+  <section id="rewards" class="py-16">
+    <h2 class="text-4xl font-bold text-center mb-8 text-emerald-600">Special Rewards for Active Users</h2>
+    <div class="bg-white p-6 rounded-xl shadow-lg max-w-2xl mx-auto">
+      <p class="text-center text-lg mb-6 text-slate-700">
+        As a dedicated financial ninja, you have the chance to earn these exclusive rewards!
+      </p>
+      <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 text-center">
+        <li class="p-4 bg-slate-100 rounded-lg shadow-sm">
+          <span class="inline-block text-3xl mb-2" role="img" aria-label="Money bag">💰</span>
+          <p class="font-bold text-emerald-600">1,000 DHS</p>
+        </li>
+        <li class="p-4 bg-slate-100 rounded-lg shadow-sm">
+          <span class="inline-block text-3xl mb-2" role="img" aria-label="Money with wings">💸</span>
+          <p class="font-bold text-emerald-600">10,000 DHS</p>
+        </li>
+        <li class="p-4 bg-slate-100 rounded-lg shadow-sm">
+          <span class="inline-block text-3xl mb-2" role="img" aria-label="Stack of money">💵</span>
+          <p class="font-bold text-emerald-600">100,000 DHS</p>
+        </li>
+        <li class="p-4 bg-slate-100 rounded-lg shadow-sm">
+          <span class="inline-block text-3xl mb-2" role="img" aria-label="iPad">📱</span>
+          <p class="font-bold text-emerald-600">iPad</p>
+        </li>
+        <li class="p-4 bg-slate-100 rounded-lg shadow-sm">
+          <span class="inline-block text-3xl mb-2" role="img" aria-label="iPhone">📞</span>
+          <p class="font-bold text-emerald-600">iPhone</p>
+        </li>
+        <li class="p-4 bg-slate-100 rounded-lg shadow-sm">
+          <span class="inline-block text-3xl mb-2" role="img" aria-label="Headphones">🎧</span>
+          <p class="font-bold text-emerald-600">AirPods</p>
+        </li>
+        <li class="p-4 bg-slate-100 rounded-lg shadow-sm col-span-full">
+          <span class="inline-block text-3xl mb-2" role="img" aria-label="Airplane">✈️</span>
+          <p class="font-bold text-emerald-600">Exclusive Premium Vacation</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- About Us Section -->
+  <section id="about" class="py-16">
+    <div class="bg-white p-8 rounded-xl shadow-lg">
+      <h2 class="text-4xl font-bold mb-6 text-emerald-600">About The Finance Ninjas</h2>
+      <p class="text-lg text-slate-700 leading-relaxed">
+        Welcome to The Finance Ninjas, where we believe that learning about money should be an exciting adventure, not a chore! Our mission is to empower kids and teens with the essential skills they need to manage their finances responsibly and confidently.
+      </p>
+      <p class="text-lg text-slate-700 leading-relaxed mt-4">
+        Through interactive quizzes, engaging lessons, and a friendly AI mentor, we make complex financial concepts simple and fun. We cover everything from saving and spending to investing and entrepreneurship. Join us on this journey and unlock your inner financial ninja!
+      </p>
+      <h3 class="text-2xl font-bold mt-8 mb-4 text-emerald-600">The Founders</h3>
+      <p class="text-lg text-slate-700 leading-relaxed">
+        This platform was created by a team of dedicated ninjas: <span class="font-semibold">Titus, Vivaan, Shreyansh, Essa, and Yatharth.</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- AI Mentor Section -->
+  <section id="mentor" class="py-16">
+    <h2 class="text-4xl font-bold text-center mb-8 text-emerald-600">Your AI Mentor</h2>
+    <div id="chat-container" class="hidden bg-white rounded-lg shadow-lg p-4 max-w-2xl mx-auto">
+      <div id="chat-box" class="h-96 overflow-y-auto mb-4 p-4 border border-slate-200 rounded-md bg-slate-50">
+        <!-- Chat messages will be dynamically added here -->
+      </div>
+      <div id="loading-indicator" class="text-center text-slate-500 my-2 hidden">
+        <div class="animate-spin inline-block h-6 w-6 border-4 border-emerald-500 border-t-transparent rounded-full"></div>
+        <span class="ml-2">Mentor is typing...</span>
+      </div>
+      <div class="flex space-x-2">
+        <input type="text" id="user-input" placeholder="Ask me anything about money..." class="flex-grow p-3 border border-slate-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500">
+        <button id="send-btn" class="bg-emerald-500 hover:bg-emerald-600 text-white font-semibold py-3 px-6 rounded-md shadow-lg transition-colors">Send</button>
+      </div>
+    </div>
+    <div class="flex justify-center mt-6">
+      <button class="btn bg-emerald-500 hover:bg-emerald-600 text-white font-semibold py-3 px-8 rounded-full shadow-lg transition-colors transform hover:scale-105" onclick="toggleChat()">Chat with Mentor</button>
+    </div>
+  </section>
+
+  <!-- Contact Us Section -->
+  <section id="contact" class="py-16">
+    <div class="bg-white p-8 rounded-xl shadow-lg max-w-lg mx-auto">
+      <h2 class="text-4xl font-bold mb-6 text-emerald-600 text-center">Contact Us</h2>
+      <!-- The form now has an ID and a status message element -->
+      <form id="contact-form" class="space-y-4">
+        <div>
+          <label for="name" class="block text-sm font-medium text-slate-700">Your Name</label>
+          <input type="text" id="name" name="name" class="mt-1 block w-full p-2 border border-slate-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500" required>
+        </div>
+        <div>
+          <label for="email" class="block text-sm font-medium text-slate-700">Your Email</label>
+          <input type="email" id="email" name="email" class="mt-1 block w-full p-2 border border-slate-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500" required>
+        </div>
+        <div>
+          <label for="message" class="block text-sm font-medium text-slate-700">Your Message</label>
+          <textarea id="message" name="message" rows="4" class="mt-1 block w-full p-2 border border-slate-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500" required></textarea>
+        </div>
+        <!-- Status message div, hidden by default -->
+        <div id="contact-message-status" class="text-center font-medium text-emerald-600 hidden"></div>
+        <div class="flex justify-center">
+          <button type="submit" id="contact-send-btn" class="bg-emerald-500 hover:bg-emerald-600 text-white font-semibold py-3 px-8 rounded-full shadow-lg transition-colors">Send Message</button>
+        </div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<!-- Quiz Result Modal -->
+<div id="result-modal" class="fixed inset-0 bg-slate-900 bg-opacity-75 flex items-center justify-center hidden z-50">
+  <div class="bg-white p-8 rounded-xl shadow-2xl max-w-sm text-center transform scale-95 transition-transform duration-300 ease-in-out">
+    <h3 id="modal-title" class="text-2xl font-bold mb-4"></h3>
+    <p id="modal-message" class="text-lg mb-6"></p>
+    <button id="modal-close-btn" class="bg-emerald-500 hover:bg-emerald-600 text-white font-semibold py-2 px-6 rounded-md transition-colors">Close</button>
+  </div>
+</div>
+
+<!-- Custom Message Modal for Alerts -->
+<div id="alert-modal" class="fixed inset-0 bg-slate-900 bg-opacity-75 flex items-center justify-center hidden z-50">
+  <div class="bg-white p-8 rounded-xl shadow-2xl max-w-sm text-center transform scale-95 transition-transform duration-300 ease-in-out">
+    <h3 class="text-2xl font-bold mb-4 text-red-600">Notice</h3>
+    <p id="alert-message" class="text-lg text-slate-700 mb-6"></p>
+    <button id="alert-close-btn" class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-6 rounded-md transition-colors">OK</button>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="bg-slate-800 text-white py-6 mt-16 text-center">
+  <div class="container mx-auto">
+    <div class="flex justify-center">
+      <p>&copy; 2025 The Finance Ninjas. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- Firebase SDK Imports -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+  import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+  import { getFirestore, doc, getDoc, addDoc, onSnapshot, collection, query, orderBy, serverTimestamp, limit } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+  // Global variables provided by the environment for Firebase setup
+  const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+  const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
+  const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+
+  let db, auth;
+  let userId;
+  let chatListenerUnsubscribe;
+
+  // Function to initialize Firebase and authenticate
+  async function initializeFirebase() {
+    try {
+      if (!db || !auth) {
+        const app = initializeApp(firebaseConfig);
+        db = getFirestore(app);
+        auth = getAuth(app);
+        
+        // Authenticate the user. Use custom token if available, otherwise sign in anonymously.
+        if (initialAuthToken) {
+          await signInWithCustomToken(auth, initialAuthToken);
+        } else {
+          await signInAnonymously(auth);
+        }
+
+        // Listen for auth state changes and set the user ID
+        onAuthStateChanged(auth, (user) => {
+          if (user) {
+            userId = user.uid;
+            console.log("Authenticated with user ID:", userId);
+            setupChatListener();
+          } else {
+            console.log("Authentication failed.");
+          }
+        });
+      }
+    } catch (error) {
+      console.error("Error initializing Firebase:", error);
+    }
+  }
+
+  // Set up a real-time listener for chat messages from Firestore
+  function setupChatListener() {
+    if (chatListenerUnsubscribe) {
+      chatListenerUnsubscribe(); // Unsubscribe previous listener if it exists
+    }
+    
+    // NOTE: The use of `orderBy` on a non-indexed field may cause performance issues.
+    // For this demonstration, we'll keep it as it's required to show chat messages in order.
+    // In a real-world app, a Firestore index would be needed.
+    const chatCollectionRef = collection(db, `artifacts/${appId}/public/data/chat`);
+    const q = query(chatCollectionRef, orderBy("timestamp"), limit(50));
+
+    chatListenerUnsubscribe = onSnapshot(q, (snapshot) => {
+      const chatBox = document.getElementById('chat-box');
+      
+      // Keep track of the current scroll position before updating
+      const isScrolledToBottom = chatBox.scrollHeight - chatBox.clientHeight <= chatBox.scrollTop + 1;
+      
+      chatBox.innerHTML = ''; // Clear chatbox
+      
+      snapshot.forEach(doc => {
+        const message = doc.data();
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `flex mb-2 ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`;
+        
+        messageDiv.innerHTML = `
+          <div class="p-3 rounded-lg shadow-sm max-w-[80%] break-words ${message.sender === 'user' ? 'bg-emerald-500 text-white' : 'bg-slate-200 text-slate-800'}">
+            ${message.text}
+          </div>
+        `;
+        chatBox.appendChild(messageDiv);
+      });
+      
+      // Only scroll to bottom if the user was already at the bottom
+      if (isScrolledToBottom) {
+        chatBox.scrollTop = chatBox.scrollHeight;
+      }
+    });
+  }
+
+  // API key is deliberately left blank as it is provided by the execution environment
+  const apiKey = "";
+  const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+
+  // Function to make the API call and get a response
+  async function getGeminiResponse(userText) {
+    const systemPrompt = "You are a friendly, encouraging, and knowledgeable financial literacy AI mentor for children and teenagers. Your name is 'The Finance Ninja'. Always use simple, easy-to-understand language. Do not use jargon. Respond concisely and keep your answers brief, fun, and helpful. You can use emojis to make your responses more engaging. Your goal is to help kids learn about concepts like saving, spending, budgeting, and earning money.";
+    
+    const payload = {
+      contents: [{ parts: [{ text: userText }] }],
+      tools: [{ "google_search": {} }],
+      systemInstruction: {
+        parts: [{ text: systemPrompt }]
+      },
+    };
+
+    const loadingIndicator = document.getElementById('loading-indicator');
+    loadingIndicator.classList.remove('hidden');
+
+    try {
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      const result = await response.json();
+      const botReply = result?.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, I'm having trouble thinking right now. Please try again!";
+      return botReply;
+    } catch (error) {
+      console.error("Error fetching Gemini response:", error);
+      return "Oops! I seem to have lost my connection. Can you ask me again in a moment? 😅";
+    } finally {
+      loadingIndicator.classList.add('hidden');
+    }
+  }
+
+  // Send a message and handle the AI response
+  async function sendMessage() {
+    const input = document.getElementById('user-input');
+    const text = input.value.trim();
+    if (!text) return;
+
+    // Add user message to Firestore
+    await addDoc(collection(db, `artifacts/${appId}/public/data/chat`), {
+      text: text,
+      timestamp: serverTimestamp(),
+      sender: 'user',
+      userId: userId
+    });
+
+    input.value = ''; // Clear input field
+
+    // Display a temporary message to the user that their message was sent
+    const chatBox = document.getElementById('chat-box');
+    const messageSentDiv = document.createElement('div');
+    messageSentDiv.className = 'text-center text-sm text-slate-500 my-2';
+    messageSentDiv.innerText = 'Your message was sent! Awaiting AI Mentor response...';
+    chatBox.appendChild(messageSentDiv);
+    chatBox.scrollTop = chatBox.scrollHeight;
+
+    // Get AI response and add it to Firestore
+    const botReply = await getGeminiResponse(text);
+    await addDoc(collection(db, `artifacts/${appId}/public/data/chat`), {
+      text: botReply,
+      timestamp: serverTimestamp(),
+      sender: 'bot',
+      userId: 'finance-ninja-bot'
+    });
+    
+    // Remove the temporary message after a brief delay
+    setTimeout(() => {
+      messageSentDiv.remove();
+    }, 3000);
+  }
+
+  // Handle Enter key press
+  document.getElementById('user-input').addEventListener('keypress', (event) => {
+    if (event.key === 'Enter') {
+      sendMessage();
+    }
+  });
+
+  document.getElementById('send-btn').addEventListener('click', sendMessage);
+
+  // Toggle chat container visibility and initialize Firebase
+  async function toggleChat() {
+    const container = document.getElementById('chat-container');
+    const isHidden = container.classList.toggle('hidden');
+    if (!isHidden) {
+      await initializeFirebase();
+    }
+  }
+  
+  window.toggleChat = toggleChat;
+  
+  // --- Start of Contact Form Logic ---
+  const contactForm = document.getElementById('contact-form');
+  const contactStatus = document.getElementById('contact-message-status');
+
+  contactForm.addEventListener('submit', function(event) {
+      event.preventDefault(); // Stop the form from submitting normally
+      
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const message = document.getElementById('message').value;
+
+      // Basic validation
+      if (!name || !email || !message) {
+          contactStatus.innerText = 'Please fill out all fields.';
+          contactStatus.classList.remove('hidden');
+          contactStatus.classList.remove('text-emerald-600');
+          contactStatus.classList.add('text-red-600');
+          return;
+      }
+      
+      // Display success message
+      contactStatus.innerText = 'Your message has been sent successfully! Thank you for reaching out.';
+      contactStatus.classList.remove('hidden');
+      contactStatus.classList.remove('text-red-600');
+      contactStatus.classList.add('text-emerald-600');
+      
+      // Clear the form
+      contactForm.reset();
+      
+      // Hide the message after 5 seconds
+      setTimeout(() => {
+          contactStatus.classList.add('hidden');
+      }, 5000);
+  });
+  // --- End of Contact Form Logic ---
+
+  // Quiz data structure for dynamic content
+  const quizData = [
+    { level: 'Beginner', title: 'Course 1: The Basics of Money', questions: [
+      { q: 'What is money used for?', options: ['Eating', 'Buying things', 'Sleeping'], answer: 'Buying things' },
+      { q: 'Why is saving money a good idea?', options: ['To buy something big later', 'To make it disappear', 'To throw it away'], answer: 'To buy something big later' },
+      { q: 'What is an allowance?', options: ['A reward for being good', 'Money you get for doing chores', 'A type of cookie'], answer: 'Money you get for doing chores' }
+    ]},
+    { level: 'Beginner', title: 'Course 2: Saving vs. Spending', questions: [
+      { q: 'What is the first thing you should do when you get money?', options: ['Spend it all', 'Save some', 'Hide it under your bed'], answer: 'Save some' },
+      { q: 'What is a need?', options: ['Something you want', 'Something you must have to live', 'A new toy'], answer: 'Something you must have to live' },
+      { q: 'What is a want?', options: ['Something you must have to live', 'A new bicycle or a video game', 'Food and water'], answer: 'A new bicycle or a video game' }
+    ]},
+    { level: 'Intermediate', title: 'Course 1: Budgeting for Fun', questions: [
+      { q: 'What is a budget?', options: ['A list of your friends', 'A plan for how to spend and save your money', 'A type of musical instrument'], answer: 'A plan for how to spend and save your money' },
+      { q: 'What is income?', options: ['Money you owe someone', 'Money you earn or receive', 'The things you buy'], answer: 'Money you earn or receive' },
+      { q: 'What are expenses?', options: ['Things you save for later', 'The money you spend on things', 'A type of food'], answer: 'The money you spend on things' }
+    ]},
+    { level: 'Advanced', title: 'Course 1: Intro to Investing', questions: [
+      { q: 'What does "investing" mean?', options: ['Spending all your money', 'Putting money in a jar', 'Using your money to make more money'], answer: 'Using your money to make more money' },
+      { q: 'What is a stock?', options: ['A type of sock', 'A small piece of a company', 'A large rock'], answer: 'A small piece of a company' },
+      { q: 'What is "interest"?', options: ['How much you like something', 'Extra money you get for saving money', 'A math problem'], answer: 'Extra money you get for saving money' }
+    ]}
+  ];
+  
+  // Generate all course buttons from quizData
+  const courseButtonsDiv = document.getElementById('course-buttons');
+  quizData.forEach((course, index) => {
+    const div = document.createElement('div');
+    div.className = 'bg-white p-6 rounded-xl shadow-lg flex flex-col items-center text-center transition-transform transform hover:scale-105 hover:shadow-2xl';
+    div.innerHTML = `
+      <h3 class="text-xl font-bold text-emerald-600 mb-2">${course.title}</h3>
+      <p class="text-slate-600 text-sm mb-4">Level: ${course.level}</p>
+      <button onclick="startQuiz(${index})" class="mt-auto bg-emerald-500 hover:bg-emerald-600 text-white font-semibold py-2 px-6 rounded-full transition-colors">Start Quiz</button>
+    `;
+    courseButtonsDiv.appendChild(div);
+  });
+  
+  // Quiz logic
+  let completedQuizzes = 0;
+  const totalQuizzes = quizData.length;
+  
+  function updateQuizProgress() {
+      const progressCount = document.getElementById('quiz-progress-count');
+      const progressBar = document.getElementById('quiz-progress-bar');
+      progressCount.innerText = completedQuizzes;
+      const progressPercentage = (completedQuizzes / totalQuizzes) * 100;
+      progressBar.style.width = `${progressPercentage}%`;
+  }
+  
+  let currentCourseIndex = 0;
+  let currentQuestionIndex = 0;
+
+  function startQuiz(index) {
+    currentCourseIndex = index;
+    currentQuestionIndex = 0;
+    document.getElementById('courses').classList.add('hidden');
+    document.getElementById('quiz-container').classList.remove('hidden');
+    document.getElementById('course-title').innerText = quizData[index].title;
+    showQuestion();
+  }
+
+  function showQuestion() {
+    const questionObj = quizData[currentCourseIndex].questions[currentQuestionIndex];
+    const container = document.getElementById('question-container');
+    let html = `
+      <div class="bg-slate-100 p-4 rounded-md shadow-sm mb-4">
+        <p class="text-xl font-semibold text-slate-800">${questionObj.q}</p>
+      </div>
+    `;
+    questionObj.options.forEach(option => {
+      html += `
+        <button onclick="checkAnswer('${option}')" class="option-btn w-full text-left p-3 my-2 rounded-md transition-colors bg-slate-200 hover:bg-slate-300">
+          ${option}
+        </button>
+      `;
+    });
+    container.innerHTML = html;
+    document.getElementById('next-btn').classList.add('hidden');
+  }
+
+  function checkAnswer(selectedOption) {
+    const questionObj = quizData[currentCourseIndex].questions[currentQuestionIndex];
+    const isCorrect = selectedOption === questionObj.answer;
+    
+    // Disable all options
+    document.querySelectorAll('.option-btn').forEach(btn => btn.disabled = true);
+
+    if (isCorrect) {
+        showResultModal('Correct!', 'Awesome! That\'s the right answer. 🎉');
+        currentQuestionIndex++;
+        if (currentQuestionIndex < quizData[currentCourseIndex].questions.length) {
+            document.getElementById('next-btn').classList.remove('hidden');
+        } else {
+            // Quiz completed
+            completedQuizzes++;
+            updateQuizProgress();
+            showResultModal('Quiz Complete!', 'You finished the quiz! Great job, financial ninja! 🏆');
+            setTimeout(() => {
+              document.getElementById('quiz-container').classList.add('hidden');
+              document.getElementById('courses').classList.remove('hidden');
+            }, 3000);
+        }
+    } else {
+        showResultModal('Incorrect', 'Not quite. The correct answer was: ' + questionObj.answer + '. Keep trying!');
+    }
+  }
+
+  document.getElementById('next-btn').addEventListener('click', () => {
+      showQuestion();
+  });
+
+  // Modal logic functions
+  function showResultModal(title, message) {
+    document.getElementById('modal-title').innerText = title;
+    document.getElementById('modal-message').innerText = message;
+    document.getElementById('result-modal').classList.remove('hidden');
+  }
+
+  function showAlertModal(message) {
+    document.getElementById('alert-message').innerText = message;
+    document.getElementById('alert-modal').classList.remove('hidden');
+  }
+  
+  document.getElementById('modal-close-btn').addEventListener('click', () => {
+    document.getElementById('result-modal').classList.add('hidden');
+  });
+
+  document.getElementById('alert-close-btn').addEventListener('click', () => {
+    document.getElementById('alert-modal').classList.add('hidden');
+  });
+
+  window.startQuiz = startQuiz;
+  window.checkAnswer = checkAnswer;
+
+  // --- Start of Financial Tools Logic ---
+
+  // Savings Goal Tracker
+  document.getElementById('update-goal-btn').addEventListener('click', () => {
+      const goalName = document.getElementById('goal-name').value;
+      const goalAmount = parseFloat(document.getElementById('goal-amount').value);
+      const savedAmount = parseFloat(document.getElementById('saved-amount').value);
+
+      if (!goalName || isNaN(goalAmount) || isNaN(savedAmount) || goalAmount <= 0) {
+          showAlertModal('Please enter valid numbers and a goal name.');
+          return;
+      }
+      
+      const goalDisplay = document.getElementById('goal-display');
+      const goalTitle = document.getElementById('goal-title-display');
+      const goalProgressText = document.getElementById('goal-progress-text');
+      const goalProgressBar = document.getElementById('goal-progress-bar');
+      const completionMessage = document.getElementById('goal-completion-message');
+
+      const progress = Math.min(100, (savedAmount / goalAmount) * 100);
+      
+      goalTitle.innerText = `Saving for: ${goalName}`;
+      goalProgressText.innerText = `$${savedAmount.toFixed(2)} of $${goalAmount.toFixed(2)}`;
+      goalProgressBar.style.width = `${progress}%`;
+      goalDisplay.classList.remove('hidden');
+
+      if (progress >= 100) {
+          completionMessage.classList.remove('hidden');
+      } else {
+          completionMessage.classList.add('hidden');
+      }
+  });
+
+  // Investing Simulator
+  document.getElementById('calculate-investment-btn').addEventListener('click', () => {
+      const initial = parseFloat(document.getElementById('initial-investment').value);
+      const annualReturn = parseFloat(document.getElementById('annual-return').value) / 100;
+      const years = parseFloat(document.getElementById('investment-years').value);
+
+      if (isNaN(initial) || isNaN(annualReturn) || isNaN(years) || initial <= 0) {
+          showAlertModal('Please enter valid numbers for the investment.');
+          return;
+      }
+
+      const finalAmount = initial * Math.pow((1 + annualReturn), years);
+      document.getElementById('final-amount').innerText = `$${finalAmount.toFixed(2)}`;
+      document.getElementById('investment-result').classList.remove('hidden');
+  });
+
+  // Earning Simulator
+  let balance = 0;
+  function updateBalance(amount) {
+      balance += amount;
+      document.getElementById('balance-display').innerText = `$${balance.toFixed(2)}`;
+  }
+  document.getElementById('task1-btn').addEventListener('click', () => updateBalance(5));
+  document.getElementById('task2-btn').addEventListener('click', () => updateBalance(10));
+  document.getElementById('task3-btn').addEventListener('click', () => updateBalance(3));
+
+  // Budgeting Tool
+  document.getElementById('calculate-budget-btn').addEventListener('click', () => {
+      const income = parseFloat(document.getElementById('monthly-income').value);
+      const expenses = parseFloat(document.getElementById('monthly-expenses').value);
+
+      if (isNaN(income) || isNaN(expenses)) {
+          showAlertModal('Please enter valid numbers for income and expenses.');
+          return;
+      }
+
+      const moneyLeft = income - expenses;
+      document.getElementById('budget-left-display').innerText = `$${moneyLeft.toFixed(2)}`;
+      document.getElementById('budget-result').classList.remove('hidden');
+  });
+
+  // --- Start of Wants vs Needs Game Logic ---
+  const wantsNeedsItems = [
+      { id: 'item1', text: 'Food', type: 'needs' },
+      { id: 'item2', text: 'Video Game', type: 'wants' },
+      { id: 'item3', text: 'Water', type: 'needs' },
+      { id: 'item4', text: 'New Shoes', type: 'wants' },
+      { id: 'item5', text: 'Shelter (home)', type: 'needs' },
+      { id: 'item6', text: 'New Phone', type: 'wants' },
+      { id: 'item7', text: 'Clothes', type: 'needs' },
+      { id: 'item8', text: 'Vacation', type: 'wants' }
+  ];
+
+  const itemList = document.getElementById('item-list');
+  const needsDropzone = document.getElementById('needs-dropzone');
+  const wantsDropzone = document.getElementById('wants-dropzone');
+
+  function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+  }
+
+  function createDraggableItems() {
+    shuffleArray(wantsNeedsItems);
+    itemList.innerHTML = ''; // Clear previous items
+    wantsNeedsItems.forEach(item => {
+      const div = document.createElement('div');
+      div.id = item.id;
+      div.innerText = item.text;
+      div.className = 'draggable-item p-3 bg-white rounded-md shadow-md hover:shadow-lg transition-shadow border-2 border-transparent';
+      div.setAttribute('draggable', true);
+      div.dataset.type = item.type;
+      itemList.appendChild(div);
+    });
+  }
+  
+  // Drag and drop event listeners
+  let draggedItem = null;
+
+  document.addEventListener('dragstart', (e) => {
+    if (e.target.classList.contains('draggable-item')) {
+        draggedItem = e.target;
+        e.dataTransfer.setData('text/plain', e.target.id);
+        setTimeout(() => {
+            e.target.style.opacity = '0.5';
+        }, 0);
+    }
+  });
+
+  document.addEventListener('dragend', (e) => {
+      e.target.style.opacity = '1';
+      draggedItem = null;
+  });
+
+  document.querySelectorAll('.drop-zone').forEach(zone => {
+      zone.addEventListener('dragover', (e) => {
+          e.preventDefault(); // This is crucial for allowing a drop
+          zone.classList.add('dragover');
+      });
+      zone.addEventListener('dragleave', () => {
+          zone.classList.remove('dragover');
+      });
+      zone.addEventListener('drop', (e) => {
+          e.preventDefault();
+          zone.classList.remove('dragover');
+          if (draggedItem) {
+              zone.appendChild(draggedItem);
+          }
+      });
+  });
+
+  document.getElementById('check-answers-btn').addEventListener('click', () => {
+      let correctCount = 0;
+      let totalItems = wantsNeedsItems.length;
+
+      wantsNeedsItems.forEach(item => {
+          const element = document.getElementById(item.id);
+          const parent = element.parentElement;
+          element.classList.remove('border-red-500', 'border-green-500');
+
+          if (parent.id === `${item.type}-dropzone`) {
+              correctCount++;
+              element.classList.add('border-green-500');
+          } else {
+              element.classList.add('border-red-500');
+          }
+      });
+
+      if (correctCount === totalItems) {
+          showResultModal('Perfect!', 'You got all of them right! You are a master financial ninja! 💯');
+      } else {
+          showResultModal('Almost There!', `You got ${correctCount} out of ${totalItems} correct. The items with a red border are in the wrong place. Try again!`);
+      }
+  });
+
+  // Initial call to create draggable items when the page loads
+  document.addEventListener('DOMContentLoaded', () => {
+    createDraggableItems();
+    updateQuizProgress();
+  });
+  // --- End of Wants vs Needs Game Logic ---
+</script>
+
+</body>
+</html>
